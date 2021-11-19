@@ -10,7 +10,9 @@ function App() {
       <Header/>
       <div className="card shadow-lg compact side bg-base-100 p-2">
         <div className="card-body">
-          <Canvas />
+          <div className="flex flex-col items-center justify-items-center">
+            <Canvas />
+          </div>
         </div>
       </div>
       <Footer/>
