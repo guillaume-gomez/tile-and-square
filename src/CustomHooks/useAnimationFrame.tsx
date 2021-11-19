@@ -10,16 +10,34 @@ export default function useAnimationFrame(callback: Function) {
    * the precise time requestAnimationFrame() was called.
    */
 
-  useEffect(() => {
-    const animate = (time: number) => {
-      if (previousTimeRef.current !== undefined) {
-        const deltaTime = time - previousTimeRef.current;
-        callback(deltaTime);
-      }
-      previousTimeRef.current = time;
-      requestRef.current = requestAnimationFrame(animate);
-    };
+  console.log(requestRef.current);
+
+  function animate(time: number) {
+    if (previousTimeRef.current !== undefined) {
+      const deltaTime = time - previousTimeRef.current;
+      callback(deltaTime);
+    }
+    previousTimeRef.current = time;
     requestRef.current = requestAnimationFrame(animate);
-    return () => cancelAnimationFrame(requestRef.current);
+  };
+
+  function stop() {
+    if(requestRef.current) {
+      cancelAnimationFrame(requestRef.current);
+      requestRef.current = 0;
+    }
+  }
+
+  function play() {
+    if(requestRef.current === 0) {
+      requestRef.current = requestAnimationFrame(animate);
+    }
+  }
+
+  useEffect(() => {
+    play();
+    return () => stop();
   }, []); // Make sure the effect runs only once
+
+  return { stop, play };
 };
