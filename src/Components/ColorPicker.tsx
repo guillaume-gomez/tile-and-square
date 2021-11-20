@@ -44,7 +44,7 @@ function ColorPicker({label, initialColorClass, onChange} : ColorPickerInterface
           </div>
           {isOpen ?
             <ClickAwayListener onClickAway={handleClickAway}>
-            <div tabIndex={0}  className="border-2 border-gray-300 origin-top-right absolute right-0 top-full mt-2 rounded-md shadow-lg">
+            <div className="overflow-y-scroll h-36 border-2 border-gray-300 origin-top-right absolute right-0 top-full mt-2 rounded-md shadow-lg">
               <div className="rounded-md bg-base-200 shadow-xs p-2">
                 <div className="flex">
                   {

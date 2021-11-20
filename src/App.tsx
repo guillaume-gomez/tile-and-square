@@ -21,7 +21,7 @@ function App() {
             <div className="flex flex-col gap-2 w-1/3">
               <ColorPicker label="Select a background color" initialColorClass={backgroundColorClass} onChange={(colorClass) => setBackgroundClass(colorClass)}/>
               <button className="btn btn-primary" onClick={() => setPlay(!play)}>{play ? "Stop" : "Play"}</button>
-              <SliderWithLabel label="Speed" min={1} max={100} value={speed} step={0.5} onChange={(value) => setSpeed(parseInt(value))}/>
+              <SliderWithLabel label="Speed" min={1} max={200} value={speed} step={0.5} onChange={(value) => setSpeed(parseInt(value))}/>
               <button className="btn btn-primary" onClick={() => setReset(!reset)}>Reset</button>
             </div>
           </div>
