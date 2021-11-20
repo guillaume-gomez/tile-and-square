@@ -9,9 +9,6 @@ export default function useAnimationFrame(callback: Function) {
    * The callback function is automatically passed a timestamp indicating
    * the precise time requestAnimationFrame() was called.
    */
-
-  console.log(requestRef.current);
-
   function animate(time: number) {
     if (previousTimeRef.current !== undefined) {
       const deltaTime = time - previousTimeRef.current;

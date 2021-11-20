@@ -17,6 +17,7 @@ function ColorPicker({label, initialColorClass, onChange} : ColorPickerInterface
 
   function selectColor(color: string, variant: number) {
     setCurrentColorClass(color + '-' + variant);
+    onChange(color + '-' + variant);
     if (variant < 500) {
       setIconColorClass("text-black");
     }

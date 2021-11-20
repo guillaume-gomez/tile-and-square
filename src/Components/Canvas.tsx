@@ -28,23 +28,36 @@ interface EngineInterface {
 }
 
 interface CanvasInterface {
+  play: boolean
+  reset: boolean;
   speed: number;
-  running: boolean;
-  backgroundColor: string;
+  backgroundColorClass: string;
 }
 
-function Canvas() {
-  const [background, setBackground] = useState<string>("#FF9915");
+function Canvas({speed, reset, play, backgroundColorClass } : CanvasInterface) {
   const ref = useRef<HTMLCanvasElement>(null);
   const tilesRef = useRef<TileData[]>([]);
-  
-  useAnimationFrame((deltaTime: number) => {
+
+  const {play: playFn, stop } = useAnimationFrame(animate);
+
+  useEffect(() => {
+    play === true ? playFn() : stop();
+  }, [play])
+
+
+  useEffect(() => {
+    stop();
+    playFn();
+  }, [speed])
+
+  useEffect(()=> {
     if(ref.current) {
+      resetPosition();
       const context = ref.current.getContext("2d");
-      moves(deltaTime);
       renderArtwork(context);
     }
-  });
+
+  },[reset])
 
 
   useEffect(() => {
@@ -75,19 +88,27 @@ function Canvas() {
     }
   }
 
-  function generateArtwork(context: CanvasRenderingContext2D | null, gap : number = 0) {
+  function animate(deltaTime: number) {
+    if(ref.current) {
+      const context = ref.current.getContext("2d");
+      moves(deltaTime);
+      renderArtwork(context);
+    }
+  }
+
+  function generateArtwork(context: CanvasRenderingContext2D | null) {
     if(!context) {
       return;
     }
     const { width, height } = ref.current!;
-    const widthTile = (width - (2 * gap)) / nbTilesWidth;
-    const heightTile = (height - (2 * gap)) / nbTilesHeight;
+    const widthTile = width / nbTilesWidth;
+    const heightTile = height / nbTilesHeight;
 
     const tiles : TileData[] = [];
     const promises = [];
 
-    for(let x = 0; x < width; x += (widthTile + gap)) {
-      for(let y = 0; y < height; y += (heightTile + gap)) {
+    for(let x = 0; x < width; x += widthTile) {
+      for(let y = 0; y < height; y += heightTile) {
 
         const image = new Image();
         image.src = pickImage();
@@ -108,6 +129,26 @@ function Canvas() {
     });
   }
 
+  function resetPosition() {
+    if(tilesRef.current.length === 0) {
+      return;
+    }
+
+    const { width, height } = ref.current!;
+    const widthTile = width  / nbTilesWidth;
+    const heightTile = height / nbTilesHeight;
+
+    const tiles : TileData[] = []
+    let index = 0;
+    for(let x = 0; x < width; x += widthTile) {
+      for(let y = 0; y < height; y += heightTile) {
+        tiles.push({...tilesRef.current[index], x, y });
+        index += index;
+      }
+    }
+    tilesRef.current = tiles;
+  }
+
   function pickImage() : string {
     const imageIndex = Math.floor(Math.random() * TILES.length);
     return TILES[imageIndex];
@@ -124,8 +165,8 @@ function Canvas() {
   }
 
   function moveAndCheckCollision({ x, y, vx, vy, width, height }: TileData, deltaTime: number) : EngineInterface {
-    let newX = x + ( vx * deltaTime );
-    let newY = y + (vy * deltaTime );
+    let newX = x + ( vx * (speed/100) * deltaTime );
+    let newY = y + (vy * (speed/100) * deltaTime );
     let newVx = vx;
     let newVy = vy;
     let newStrategy = false;
@@ -166,9 +207,8 @@ function Canvas() {
     })
   }
 
-
   return (
-    <canvas ref={ref} className="border rounded-lg">
+    <canvas ref={ref} className={`border-2 rounded-lg bg-${backgroundColorClass}`}>
     </canvas>
   );
 }
