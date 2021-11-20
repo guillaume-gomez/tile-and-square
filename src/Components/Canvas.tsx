@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useRef, useEffect } from 'react';
 import tile_zero from "../Tiles/tile_0.png";
 import tile_one from "../Tiles/tile_1.png";
 import tile_second from "../Tiles/tile_2.png";
@@ -34,6 +34,8 @@ interface CanvasInterface {
   backgroundColorClass: string;
 }
 
+type strategyType = "horizontal"| "vertical" | "southEast" | "northEast" | "southWest" | "northWest";
+
 function Canvas({speed, reset, play, backgroundColorClass } : CanvasInterface) {
   const ref = useRef<HTMLCanvasElement>(null);
   const tilesRef = useRef<TileData[]>([]);
@@ -42,13 +44,13 @@ function Canvas({speed, reset, play, backgroundColorClass } : CanvasInterface) {
 
   useEffect(() => {
     play === true ? playFn() : stop();
-  }, [play])
+  }, [play, playFn, stop])
 
 
   useEffect(() => {
     stop();
     playFn();
-  }, [speed])
+  }, [speed, stop, playFn])
 
   useEffect(()=> {
     if(ref.current) {
@@ -56,21 +58,20 @@ function Canvas({speed, reset, play, backgroundColorClass } : CanvasInterface) {
       const context = ref.current.getContext("2d");
       renderArtwork(context);
     }
-
   },[reset])
 
 
   useEffect(() => {
     const { current } = ref;
     if(current) {
-      current.width = 1000;
-      current.height = 1000;
+      current.width = current.parentElement!.offsetWidth / 2;
+      current.height = current.parentElement!.offsetWidth / 2;
       let context = current.getContext("2d");
       generateArtwork(context);
     }
   }, []);
 
-  function computeVelocityByStrategy(strategyName: string) : [number, number] {
+  function computeVelocityByStrategy(strategyName: strategyType) : [number, number] {
     switch(strategyName) {
       case "horizontal":
       default:
@@ -107,6 +108,8 @@ function Canvas({speed, reset, play, backgroundColorClass } : CanvasInterface) {
     const tiles : TileData[] = [];
     const promises = [];
 
+    const strategyName = sample(["horizontal","vertical", "southEast", "northEast" , "southWest" , "northWest"]) as strategyType;
+
     for(let x = 0; x < width; x += widthTile) {
       for(let y = 0; y < height; y += heightTile) {
 
@@ -114,7 +117,7 @@ function Canvas({speed, reset, play, backgroundColorClass } : CanvasInterface) {
         image.src = pickImage();
         const promise = new Promise((resolve, reject) => { 
           image.onload = () => {
-            const [vx, vy] = computeVelocityByStrategy("vertical");
+            const [vx, vy] = computeVelocityByStrategy(strategyName);
             resolve({x, y , vx, vy, width: widthTile, height: heightTile, image });
           }
         });

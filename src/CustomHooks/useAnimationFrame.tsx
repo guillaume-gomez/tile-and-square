@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from "react";
+import { useRef, useEffect } from "react";
 
 export default function useAnimationFrame(callback: Function) {
   // Use useRef for mutable variables that we want to persist
@@ -34,7 +34,7 @@ export default function useAnimationFrame(callback: Function) {
   useEffect(() => {
     play();
     return () => stop();
-  }, []); // Make sure the effect runs only once
+  }, [play]); // Make sure the effect runs only once
 
   return { stop, play };
 };
