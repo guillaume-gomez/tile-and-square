@@ -1,15 +1,15 @@
 /* eslint-disable react/prop-types */
 import React, { useRef, useEffect, forwardRef, useImperativeHandle } from 'react';
-import tile_zero from "../Tiles/tile_0.png";
-import tile_one from "../Tiles/tile_1.png";
-import tile_second from "../Tiles/tile_2.png";
-import tile_third from "../Tiles/tile_3.png";
 import useAnimationFrame from "../CustomHooks/useAnimationFrame";
 import { sample } from "lodash";
 import { TileData, strategyType, ExternalActionInterface } from "../interfaces";
 
-const nbTilesWidth = 4;
-const nbTilesHeight = 4;
+import tile_zero from "../Tiles/tile_0.png";
+import tile_one from "../Tiles/tile_1.png";
+import tile_second from "../Tiles/tile_2.png";
+import tile_third from "../Tiles/tile_3.png";
+
+
 const TILES = [tile_zero, tile_one, tile_second, tile_third];
 
 
@@ -23,9 +23,10 @@ interface EngineInterface {
 interface CanvasInterface {
   speed: number;
   backgroundColorClass: string;
+  nbTilesWidth: number
 }
 
-const Canvas = forwardRef<ExternalActionInterface, CanvasInterface>(({speed, backgroundColorClass }, ref) => {
+const Canvas = forwardRef<ExternalActionInterface, CanvasInterface>(({speed, backgroundColorClass, nbTilesWidth }, ref) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const tilesRef = useRef<TileData[]>([]);
   const { play, stop } = useAnimationFrame(animate);
@@ -43,6 +44,12 @@ const Canvas = forwardRef<ExternalActionInterface, CanvasInterface>(({speed, bac
     stop();
     play();
   }, [speed])
+
+
+  useEffect(() => {
+    generateArtwork();
+  }, [nbTilesWidth])
+
 
   useImperativeHandle(ref, () => ({
       play() {
@@ -91,7 +98,7 @@ const Canvas = forwardRef<ExternalActionInterface, CanvasInterface>(({speed, bac
   function generateArtwork() {
     const { width, height } = canvasRef.current!;
     const widthTile = width / nbTilesWidth;
-    const heightTile = height / nbTilesHeight;
+    const heightTile = height / nbTilesWidth;
 
     const tiles : TileData[] = [];
     const promises = [];
@@ -127,7 +134,7 @@ const Canvas = forwardRef<ExternalActionInterface, CanvasInterface>(({speed, bac
 
     const { width, height } = canvasRef.current!;
     const widthTile = width  / nbTilesWidth;
-    const heightTile = height / nbTilesHeight;
+    const heightTile = height / nbTilesWidth;
 
     const tiles : TileData[] = []
     let index = 0;
@@ -193,6 +200,12 @@ const Canvas = forwardRef<ExternalActionInterface, CanvasInterface>(({speed, bac
     context.clearRect(0,0, 1000, 1000);
     tilesRef.current.forEach(({image, x, y, width, height}) => {
       context.save();
+
+      // customise color
+/*      context.fillStyle = "grey";
+      context.fillRect(x, y, width, height);
+      context.globalCompositeOperation = "destination-out";*/
+      
       context.drawImage(image, x, y, width, height);
       context.restore();
     })
