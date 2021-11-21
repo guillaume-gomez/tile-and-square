@@ -34,7 +34,7 @@ export default function useAnimationFrame(callback: Function) {
   useEffect(() => {
     play();
     return () => stop();
-  }, [play]); // Make sure the effect runs only once
+  }, []); // Make sure the effect runs only once
 
   return { stop, play };
 };

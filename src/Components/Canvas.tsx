@@ -1,24 +1,17 @@
-import React, { useRef, useEffect } from 'react';
+/* eslint-disable react/prop-types */
+import React, { useRef, useEffect, forwardRef, useImperativeHandle } from 'react';
 import tile_zero from "../Tiles/tile_0.png";
 import tile_one from "../Tiles/tile_1.png";
 import tile_second from "../Tiles/tile_2.png";
 import tile_third from "../Tiles/tile_3.png";
 import useAnimationFrame from "../CustomHooks/useAnimationFrame";
 import { sample } from "lodash";
+import { TileData, strategyType, ExternalActionInterface } from "../interfaces";
 
 const nbTilesWidth = 4;
 const nbTilesHeight = 4;
 const TILES = [tile_zero, tile_one, tile_second, tile_third];
 
-interface TileData {
-  x: number;
-  y: number;
-  vx: number;
-  vy: number;
-  width: number;
-  height: number;
-  image: HTMLImageElement;
-}
 
 interface EngineInterface {
   x: number;
@@ -28,48 +21,46 @@ interface EngineInterface {
 }
 
 interface CanvasInterface {
-  play: boolean
-  reset: boolean;
   speed: number;
   backgroundColorClass: string;
 }
 
-type strategyType = "horizontal"| "vertical" | "southEast" | "northEast" | "southWest" | "northWest";
-
-function Canvas({speed, reset, play, backgroundColorClass } : CanvasInterface) {
-  const ref = useRef<HTMLCanvasElement>(null);
+const Canvas = forwardRef<ExternalActionInterface, CanvasInterface>(({speed, backgroundColorClass }, ref) => {
+  const canvasRef = useRef<HTMLCanvasElement>(null);
   const tilesRef = useRef<TileData[]>([]);
-
-  const {play: playFn, stop } = useAnimationFrame(animate);
-
-  useEffect(() => {
-    play === true ? playFn() : stop();
-  }, [play, playFn, stop])
-
+  const { play, stop } = useAnimationFrame(animate);
 
   useEffect(() => {
-    stop();
-    playFn();
-  }, [speed, stop, playFn])
-
-  useEffect(()=> {
-    if(ref.current) {
-      resetPosition();
-      const context = ref.current.getContext("2d");
-      renderArtwork(context);
-    }
-  },[reset])
-
-
-  useEffect(() => {
-    const { current } = ref;
+    const { current } = canvasRef;
     if(current) {
       current.width = current.parentElement!.offsetWidth / 2;
       current.height = current.parentElement!.offsetWidth / 2;
-      let context = current.getContext("2d");
-      generateArtwork(context);
+      generateArtwork();
     }
   }, []);
+
+  useEffect(() => {
+    stop();
+    play();
+  }, [speed])
+
+  useImperativeHandle(ref, () => ({
+      play() {
+        play();
+      },
+
+      pause() {
+        stop();
+      },
+
+      resetPosition() {
+        resetPosition();
+      },
+
+      resetAll() {
+        generateArtwork();
+      }
+    }));
 
   function computeVelocityByStrategy(strategyName: strategyType) : [number, number] {
     switch(strategyName) {
@@ -90,18 +81,15 @@ function Canvas({speed, reset, play, backgroundColorClass } : CanvasInterface) {
   }
 
   function animate(deltaTime: number) {
-    if(ref.current) {
-      const context = ref.current.getContext("2d");
+    if(canvasRef.current) {
+      const context = canvasRef.current.getContext("2d");
       moves(deltaTime);
       renderArtwork(context);
     }
   }
 
-  function generateArtwork(context: CanvasRenderingContext2D | null) {
-    if(!context) {
-      return;
-    }
-    const { width, height } = ref.current!;
+  function generateArtwork() {
+    const { width, height } = canvasRef.current!;
     const widthTile = width / nbTilesWidth;
     const heightTile = height / nbTilesHeight;
 
@@ -137,7 +125,7 @@ function Canvas({speed, reset, play, backgroundColorClass } : CanvasInterface) {
       return;
     }
 
-    const { width, height } = ref.current!;
+    const { width, height } = canvasRef.current!;
     const widthTile = width  / nbTilesWidth;
     const heightTile = height / nbTilesHeight;
 
@@ -174,8 +162,8 @@ function Canvas({speed, reset, play, backgroundColorClass } : CanvasInterface) {
     let newVy = vy;
     let newStrategy = false;
 
-    const widthCanvas = ref!.current!.width;
-    const heightCanvas = ref!.current!.height;
+    const widthCanvas = canvasRef!.current!.width;
+    const heightCanvas = canvasRef!.current!.height;
 
     if(newX < 0) {
       newX = 0;
@@ -211,9 +199,9 @@ function Canvas({speed, reset, play, backgroundColorClass } : CanvasInterface) {
   }
 
   return (
-    <canvas ref={ref} className={`border-2 rounded-lg bg-${backgroundColorClass}`}>
+    <canvas ref={canvasRef} className={`border-2 rounded-lg bg-${backgroundColorClass}`}>
     </canvas>
   );
-}
+});
 
 export default Canvas;
