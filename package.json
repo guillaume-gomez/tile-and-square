@@ -1,6 +1,7 @@
 {
   "name": "tile-and-square",
   "version": "0.1.0",
+  "homepage": "https://guillaume-gomez.github.io/tile-and-square",
   "private": true,
   "dependencies": {
     "@craco/craco": "^6.4.0",
@@ -13,6 +14,7 @@
     "@types/react": "^17.0.0",
     "@types/react-dom": "^17.0.0",
     "daisyui": "^1.16.2",
+    "gh-pages": "^3.2.3",
     "lodash": "^4.17.21",
     "react": "^17.0.2",
     "react-click-away-listener": "^2.0.5",
@@ -25,7 +27,9 @@
     "start": "craco start",
     "build": "craco build",
     "test": "craco test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "predeploy": "yarn run build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": [
