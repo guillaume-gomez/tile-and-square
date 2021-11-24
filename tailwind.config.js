@@ -6,7 +6,7 @@ COLORS.forEach((color) => {
   VARIANTS.forEach((variant) => {
     whitelist.push(`bg-${color}-${variant}`)
   })
-})
+});
 
 module.exports = {
   purge: {

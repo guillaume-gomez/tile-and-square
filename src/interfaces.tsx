@@ -15,4 +15,6 @@ export interface ExternalActionInterface {
   pause: () => void;
   resetPosition: () => void;
   resetAll: () => void;
+  resize:(width: number, height: number) => void;
+  scrollTo:() => void;
 }

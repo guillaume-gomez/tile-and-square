@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
 import React, { useRef, useEffect, forwardRef, useImperativeHandle } from 'react';
 import useAnimationFrame from "../CustomHooks/useAnimationFrame";
+import useWindowSize from "../CustomHooks/useWindowSize";
 import { sample } from "lodash";
 import { TileData, strategyType, ExternalActionInterface } from "../interfaces";
 
@@ -44,11 +45,21 @@ const Canvas = forwardRef<ExternalActionInterface, CanvasInterface>(({speed, bac
   const tilesRef = useRef<TileData[]>([]);
   const { play, stop } = useAnimationFrame(animate);
 
+  useWindowSize((width: number, height: number) => {
+    console.log("coucou")
+    const { current } = canvasRef;
+    if(current) {
+      // divide by two is arbitrary
+      current.width = width/2;
+      current.height = width/2;
+      resizeTiles(current.width, current.height);
+      resetPosition();
+    }
+  });
+
   useEffect(() => {
     const { current } = canvasRef;
     if(current) {
-      current.width = current.parentElement!.offsetWidth / 2;
-      current.height = current.parentElement!.offsetWidth / 2;
       generateArtwork();
     }
   }, []);
@@ -88,7 +99,24 @@ const Canvas = forwardRef<ExternalActionInterface, CanvasInterface>(({speed, bac
             renderArtwork(context);
           }
         });
+      },
+
+      resize(width: number, height: number) {
+        const { current } = canvasRef;
+        if(current) {
+          current.width = width;
+          current.height = height;
+          resizeTiles(width, height);
+          resetPosition();
+        }
+      },
+
+      scrollTo(){
+        if(canvasRef && canvasRef.current) {
+          canvasRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
       }
+      
     }));
 
   function computeVelocityByStrategy(strategyName: strategyType) : [number, number] {
@@ -175,6 +203,13 @@ const Canvas = forwardRef<ExternalActionInterface, CanvasInterface>(({speed, bac
   function pickImage() : string {
     const imageIndex = Math.floor(Math.random() * TILES.length);
     return TILES[imageIndex];
+  }
+
+  function resizeTiles(width: number, height: number) {
+    const widthTile = width / nbTilesWidth;
+    const heightTile = height / nbTilesWidth;
+    const newTiles = tilesRef.current.map(tile => ({...tile, width: widthTile, height: heightTile}));
+    tilesRef.current = newTiles;
   }
 
   function moves(deltaTime: number) {
