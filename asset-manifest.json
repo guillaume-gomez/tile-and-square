@@ -1,8 +1,8 @@
 {
   "files": {
-    "main.css": "/tile-and-square/static/css/main.07916fe6.chunk.css",
-    "main.js": "/tile-and-square/static/js/main.3a48000b.chunk.js",
-    "main.js.map": "/tile-and-square/static/js/main.3a48000b.chunk.js.map",
+    "main.css": "/tile-and-square/static/css/main.6ff22139.chunk.css",
+    "main.js": "/tile-and-square/static/js/main.df685783.chunk.js",
+    "main.js.map": "/tile-and-square/static/js/main.df685783.chunk.js.map",
     "runtime-main.js": "/tile-and-square/static/js/runtime-main.4c0a5d81.js",
     "runtime-main.js.map": "/tile-and-square/static/js/runtime-main.4c0a5d81.js.map",
     "static/js/2.36689eb4.chunk.js": "/tile-and-square/static/js/2.36689eb4.chunk.js",
@@ -10,7 +10,7 @@
     "static/js/3.69b95de2.chunk.js": "/tile-and-square/static/js/3.69b95de2.chunk.js",
     "static/js/3.69b95de2.chunk.js.map": "/tile-and-square/static/js/3.69b95de2.chunk.js.map",
     "index.html": "/tile-and-square/index.html",
-    "static/css/main.07916fe6.chunk.css.map": "/tile-and-square/static/css/main.07916fe6.chunk.css.map",
+    "static/css/main.6ff22139.chunk.css.map": "/tile-and-square/static/css/main.6ff22139.chunk.css.map",
     "static/js/2.36689eb4.chunk.js.LICENSE.txt": "/tile-and-square/static/js/2.36689eb4.chunk.js.LICENSE.txt",
     "static/media/tile_0.16adae93.png": "/tile-and-square/static/media/tile_0.16adae93.png",
     "static/media/tile_1.e8bbf6bb.png": "/tile-and-square/static/media/tile_1.e8bbf6bb.png",
@@ -20,7 +20,7 @@
   "entrypoints": [
     "static/js/runtime-main.4c0a5d81.js",
     "static/js/2.36689eb4.chunk.js",
-    "static/css/main.07916fe6.chunk.css",
-    "static/js/main.3a48000b.chunk.js"
+    "static/css/main.6ff22139.chunk.css",
+    "static/js/main.df685783.chunk.js"
   ]
 }
