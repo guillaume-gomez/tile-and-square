@@ -46,12 +46,14 @@ const Canvas = forwardRef<ExternalActionInterface, CanvasInterface>(({speed, bac
   const { play, stop } = useAnimationFrame(animate);
 
   useWindowSize((width: number, height: number) => {
-    console.log("coucou")
     const { current } = canvasRef;
     if(current) {
+      const width = window.innerWidth;
+      const height = window.innerHeight;
       // divide by two is arbitrary
-      current.width = width/2;
-      current.height = width/2;
+      const value = Math.min(width, height) - 50;
+      current.width = value;
+      current.height = value;
       resizeTiles(current.width, current.height);
       resetPosition();
     }
@@ -256,7 +258,8 @@ const Canvas = forwardRef<ExternalActionInterface, CanvasInterface>(({speed, bac
     if(!context) {
       return null;
     }
-    context.clearRect(0,0, 1000, 1000);
+    const { width, height } = canvasRef.current!;
+    context.clearRect(0,0, width, height);
     tilesRef.current.forEach(({image, x, y, width, height}) => {
       context.save();
 

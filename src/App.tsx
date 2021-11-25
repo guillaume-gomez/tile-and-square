@@ -14,7 +14,22 @@ function App() {
   const [backgroundColorClass, setBackgroundClass] = useState<string>("red-800");
   const [nbTilesWidth, setNbTileWidth] = useState<number>(4);
   const [fullScreen, setFullScreen] = useState<boolean>(false);
+  const [showOverlay, setShowOverlay] = useState<boolean>(false);
+  const container = useRef<HTMLDivElement>(null);
   const canvasActionsRef = useRef<ExternalActionInterface| null>(null);
+
+  useEffect(() => {
+    function fullscreenCallback() {
+      console.log(document.fullscreenElement)
+      if (document.fullscreenElement) {
+        setFullScreen(true)
+      } else {
+        setFullScreen(false)
+      }
+    }
+    container!.current!.addEventListener('fullscreenchange', fullscreenCallback);
+    return () => container!.current!.removeEventListener('fullscreenchange', fullscreenCallback);
+  }, [container])
 
   function resetPosition() {
     if(canvasActionsRef && canvasActionsRef.current) {
@@ -42,15 +57,40 @@ function App() {
     setPlay(!play);
   }
 
-  function resizeCanvasfullScreen() {
-    if(!canvasActionsRef || !canvasActionsRef.current) {
+  function ToggleFullScreen() {
+    if(fullScreen || document.fullscreenElement) {
+      CloseFullScreen();
+    } else {
+      SetFullScreen();
+    }
+  }
+
+  function SetFullScreen() {
+    if(!container || !container.current) {
       return;
     }
-    const width = window.innerWidth;
-    const height = window.innerHeight;
-    const value = Math.min(width, height) - 10;
-    canvasActionsRef.current.resize(value, value);
-    canvasActionsRef.current.scrollTo();
+    if(!document.fullscreenElement) {
+      container.current.requestFullscreen({ navigationUI: "show" })
+      .then(() => {
+        if(canvasActionsRef && canvasActionsRef.current) {
+          canvasActionsRef.current.scrollTo();
+        }
+      })
+    }
+  }
+
+  function CloseFullScreen() {
+    if(!container || !container.current) {
+      return;
+    }
+    if (document.fullscreenElement) {
+      document.exitFullscreen()
+        .then(() => {
+        if(canvasActionsRef && canvasActionsRef.current) {
+          canvasActionsRef.current.scrollTo();
+        }
+      })
+    }
   }
 
   function resizeTiles(value: string) {
@@ -58,12 +98,24 @@ function App() {
   }
 
   return (
-    <div className="flex flex-col gap-5 bg-base-200 rounded-box p-2">
-      <Header/>
+    <div ref={container} className="flex flex-col gap-5 bg-base-200 rounded-box p-2">
+      { !fullScreen ? <Header/> : null }
       <div className="card shadow-lg compact side bg-base-100">
         <div className="card-body">
           <div className="flex flex-col items-center justify-items-center gap-10">
-            <Canvas ref={canvasActionsRef} speed={speed} backgroundColorClass={backgroundColorClass} nbTilesWidth={nbTilesWidth} />
+            <div className="p-10 absolute top-0">
+              {
+                showOverlay ?
+                <button onMouseEnter={() => setShowOverlay(true)} className="btn btn-primary" onClick={() => ToggleFullScreen() }>{fullScreen ? "Disable Full Screen" : "Enable Full Screen"}</button>
+                : null
+              }
+            </div>
+            <div
+              onMouseEnter={() => setShowOverlay(true)}
+              onMouseLeave={() => setShowOverlay(false)}
+            >
+              <Canvas ref={canvasActionsRef} speed={speed} backgroundColorClass={backgroundColorClass} nbTilesWidth={nbTilesWidth} />
+            </div>
             <div className="flex flex-col gap-3 lg:w-1/3">
               <ColorPicker label="Select a background color" initialColorClass={backgroundColorClass} onChange={(colorClass) => setBackgroundClass(colorClass)}/>
               <button className="btn btn-primary" onClick={() => resetAll()}>Regenerate</button>
@@ -71,12 +123,11 @@ function App() {
               <SliderWithLabel label="Speed" min={1} max={200} value={speed} step={0.5} onChange={(value) => setSpeed(parseInt(value))}/>
               <SliderWithLabel label="Nb Tiles Width" min={2} max={10} value={nbTilesWidth} step={1} onChange={resizeTiles}/>
               <button className="btn btn-primary" onClick={() => resetPosition()}>Reset Positions</button>
-              <button className="btn btn-primary" onClick={() => { setFullScreen(!fullScreen); resizeCanvasfullScreen() }}>Full Screen</button>
             </div>
           </div>
         </div>
       </div>
-      <Footer/>
+      { !fullScreen ? <Footer/> : null }
     </div>
   );
 }
