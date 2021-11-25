@@ -5,7 +5,7 @@ function Header() {
     <div className="navbar mb-2 shadow-lg bg-base-300 text-neutral-content rounded-box">
       <div className="flex-1 px-2 mx-2">
         <span className="text-lg font-bold">
-         Tile and Square
+         Tiles and Squares
         </span>
       </div> 
       <div className="flex-none">
