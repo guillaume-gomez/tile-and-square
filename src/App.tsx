@@ -103,12 +103,8 @@ function App() {
       <div className="card shadow-lg compact side bg-base-100">
         <div className="card-body">
           <div className="flex flex-col items-center justify-items-center gap-10">
-            <div className="p-10 absolute top-0">
-              {
-                showOverlay ?
-                <button onMouseEnter={() => setShowOverlay(true)} className="btn btn-primary" onClick={() => ToggleFullScreen() }>{fullScreen ? "Disable Full Screen" : "Enable Full Screen"}</button>
-                : null
-              }
+            <div className="absolute top-8">
+              <button onMouseEnter={() => setShowOverlay(true)} className={`${showOverlay ? "hidden" : "" }transform -translate-y-20 transition duration-500 ease-in-out btn btn-primary`} onClick={() => ToggleFullScreen() }>{fullScreen ? "Disable Full Screen" : "Enable Full Screen"}</button>
             </div>
             <div
               onMouseEnter={() => setShowOverlay(true)}
