@@ -20,7 +20,6 @@ function App() {
 
   useEffect(() => {
     function fullscreenCallback() {
-      console.log(document.fullscreenElement)
       if (document.fullscreenElement) {
         setFullScreen(true)
       } else {

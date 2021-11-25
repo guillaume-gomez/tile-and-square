@@ -56,6 +56,8 @@ const Canvas = forwardRef<ExternalActionInterface, CanvasInterface>(({speed, bac
       current.height = value;
       resizeTiles(current.width, current.height);
       resetPosition();
+      const context = current.getContext("2d");
+      renderArtwork(context);
     }
   });
 
@@ -112,7 +114,7 @@ const Canvas = forwardRef<ExternalActionInterface, CanvasInterface>(({speed, bac
           resetPosition();
         }
       },
-
+      
       scrollTo(){
         if(canvasRef && canvasRef.current) {
           canvasRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -262,7 +264,6 @@ const Canvas = forwardRef<ExternalActionInterface, CanvasInterface>(({speed, bac
     context.clearRect(0,0, width, height);
     tilesRef.current.forEach(({image, x, y, width, height}) => {
       context.save();
-
       // customise color
 /*      context.fillStyle = "grey";
       context.fillRect(x, y, width, height);
