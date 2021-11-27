@@ -51,7 +51,7 @@ const Canvas = forwardRef<ExternalActionInterface, CanvasInterface>(({speed, bac
       const width = window.innerWidth;
       const height = window.innerHeight;
       // divide by two is arbitrary
-      const value = Math.min(width, height) - 50;
+      const value = Math.min(width, height) - 25;
       current.width = value;
       current.height = value;
       resizeTiles(current.width, current.height);
