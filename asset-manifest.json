@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/tile-and-square/static/css/main.6ff22139.chunk.css",
-    "main.js": "/tile-and-square/static/js/main.0c3b7d5e.chunk.js",
-    "main.js.map": "/tile-and-square/static/js/main.0c3b7d5e.chunk.js.map",
+    "main.js": "/tile-and-square/static/js/main.37f78dbf.chunk.js",
+    "main.js.map": "/tile-and-square/static/js/main.37f78dbf.chunk.js.map",
     "runtime-main.js": "/tile-and-square/static/js/runtime-main.4c0a5d81.js",
     "runtime-main.js.map": "/tile-and-square/static/js/runtime-main.4c0a5d81.js.map",
     "static/js/2.36689eb4.chunk.js": "/tile-and-square/static/js/2.36689eb4.chunk.js",
@@ -21,6 +21,6 @@
     "static/js/runtime-main.4c0a5d81.js",
     "static/js/2.36689eb4.chunk.js",
     "static/css/main.6ff22139.chunk.css",
-    "static/js/main.0c3b7d5e.chunk.js"
+    "static/js/main.37f78dbf.chunk.js"
   ]
 }
