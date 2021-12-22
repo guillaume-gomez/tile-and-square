@@ -3,6 +3,16 @@ import SliderWithLabel from "./SliderWithLabel";
 import InputColor from "./InputColor";
 import InputColorRGBA from "./InputColorRGBA";
 
+function getRandomColor() {
+  var letters = '0123456789ABCDEF';
+  var color = '#';
+  for (var i = 0; i < 6; i++) {
+    color += letters[Math.floor(Math.random() * 16)];
+  }
+  return color + "FF";
+}
+
+
 const styles = {
   //border: '0.0625rem solid #9c9c9c',
   //borderRadius: 'rounded-box',
@@ -16,7 +26,7 @@ interface ColorPaletteInterface {
 
 function ColorPalette({ onChange } : ColorPaletteInterface) {
   const [color, setColor] = useState<string>(COLORS[0]);
-  const [customColor, setCustomColor] = useState<string>("#FFFFFFFF");
+  const [customColor, setCustomColor] = useState<string>(getRandomColor());
 
   function changeColor(color: string) {
     onChange(color);

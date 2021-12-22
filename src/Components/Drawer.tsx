@@ -22,7 +22,7 @@ function Drawer() {
       <div className="w-1/6 card-body bg-base-300 rounded-box">
         <h2 className="card-title">Palette</h2>
         <ColorPalette onChange={(color) => setPencilColor(color)} />
-        <div className="flex flex-col pt-10">
+        <div className="flex flex-col">
           BackgroundColor
           <InputColorRGBA onChange={(color) => setBackgroundColor(color)} color={backgroundColor}/>
         </div>
