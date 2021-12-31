@@ -7,17 +7,20 @@ import {
 import Artwork from "./views/Artwork";
 import DiyForm from "./views/DiyForm";
 import Layout from "./views/Layout";
+import { Tiles } from "./CustomHooks/useTiles";
 
 function App() {
   return (
   <BrowserRouter>
-    <Routes>
-      <Route path="tile-and-square" element={<Layout />}>
-        <Route path="diy" element={<DiyForm />} />
-        <Route index element={<Artwork />} />
-      </Route>
-      <Route path="*" element={<Artwork />} />
-    </Routes>
+    <Tiles.Provider>
+      <Routes>
+        <Route path="tile-and-square" element={<Layout />}>
+          <Route path="diy" element={<DiyForm />} />
+          <Route index element={<Artwork />} />
+        </Route>
+        <Route path="*" element={<Artwork />} />
+      </Routes>
+    </Tiles.Provider>
   </BrowserRouter>
   )
 }

@@ -5,27 +5,6 @@ import useWindowSize from "../CustomHooks/useWindowSize";
 import { sample } from "lodash";
 import { TileData, strategyType, ExternalActionInterface } from "../interfaces";
 
-import zero from "../Tiles/tile_0.png";
-import one from "../Tiles/tile_1.png";
-import second from "../Tiles/tile_2.png";
-import third from "../Tiles/tile_3.png";
-import four from "../Tiles/tile_4.png";
-import five from "../Tiles/tile_5.png";
-import six from "../Tiles/tile_6.png";
-import seven from "../Tiles/tile_7.png";
-import eight from "../Tiles/tile_8.png";
-import nine from "../Tiles/tile_9.png";
-import ten from "../Tiles/tile_10.png";
-import eleven from "../Tiles/tile_11.png";
-import twelve from "../Tiles/tile_12.png";
-import thirteen from "../Tiles/tile_13.png";
-import forteen from "../Tiles/tile_14.png";
-import fifteen from "../Tiles/tile_15.png";
-import sixteen from "../Tiles/tile_16.png";
-import seventeen from "../Tiles/tile_17.png";
-
-const TILES = [zero, one, second, third, four, five, six, seven, eight, nine, ten, eleven, twelve, thirteen, forteen, fifteen, sixteen, seventeen];
-
 
 interface EngineInterface {
   x: number;
@@ -37,10 +16,11 @@ interface EngineInterface {
 interface CanvasInterface {
   speed: number;
   backgroundColorClass: string;
-  nbTilesWidth: number
+  nbTilesWidth: number;
+  tileCollection: string[];
 }
 
-const Canvas = forwardRef<ExternalActionInterface, CanvasInterface>(({speed, backgroundColorClass, nbTilesWidth }, ref) => {
+const Canvas = forwardRef<ExternalActionInterface, CanvasInterface>(({speed, backgroundColorClass, nbTilesWidth, tileCollection }, ref) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const tilesRef = useRef<TileData[]>([]);
   const { play, stop } = useAnimationFrame(animate);
@@ -205,8 +185,8 @@ const Canvas = forwardRef<ExternalActionInterface, CanvasInterface>(({speed, bac
   }
 
   function pickImage() : string {
-    const imageIndex = Math.floor(Math.random() * TILES.length);
-    return TILES[imageIndex];
+    const imageIndex = Math.floor(Math.random() * tileCollection.length);
+    return tileCollection[imageIndex];
   }
 
   function resizeTiles(width: number, height: number) {
