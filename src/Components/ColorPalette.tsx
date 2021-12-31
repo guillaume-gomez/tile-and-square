@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import SliderWithLabel from "./SliderWithLabel";
 import InputColor from "./InputColor";
 import InputColorRGBA from "./InputColorRGBA";
 
@@ -11,12 +10,6 @@ function getRandomColor() {
   }
   return color + "FF";
 }
-
-
-const styles = {
-  //border: '0.0625rem solid #9c9c9c',
-  //borderRadius: 'rounded-box',
-};
 
 const COLORS=["#000000", "#FF00FF", "#FFFF00", "#00FFFF", "#00FF00", "#FF0000", "#0F0FD0", "#ADEDFF"];
 
@@ -55,7 +48,7 @@ function ColorPalette({ onChange } : ColorPaletteInterface) {
           {renderColors()}
           <InputColor onChange={(color) => changeCustomColor(color)} color={customColor}/>
         </div>
-        Result
+        <div className="text-base font-bold">Result</div>
         <InputColorRGBA onChange={(color) => changeColor(color)} color={color} />
       </div>
   );

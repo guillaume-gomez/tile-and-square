@@ -1,7 +1,4 @@
 import React, { useState, useRef } from 'react';
-
-import Footer from '../Components/Footer';
-import Header from '../Components/Header';
 import Canvas from '../Components/Canvas';
 import SliderWithLabel from "../Components/SliderWithLabel";
 import ColorPicker from "../Components/ColorPicker";
@@ -72,6 +69,7 @@ function Artwork() {
   }
 
   function CloseFullScreen() {
+    console.log("fjkfdjk")
     if(!container || !container.current) {
       return;
     }

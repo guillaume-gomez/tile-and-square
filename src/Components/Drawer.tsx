@@ -27,7 +27,9 @@ function Drawer({onSubmit} : DrawerInterface) {
     }
     const result = await canvasRef.current.exportImage("png");
     onSubmit(result);
-    canvasRef.current.resetCanvas();
+    if(canvasRef && canvasRef.current) {
+      canvasRef.current.resetCanvas();
+    }
   }
 
   function toggleTransparent() {
@@ -38,13 +40,15 @@ function Drawer({onSubmit} : DrawerInterface) {
     <div className="w-full flex gap-2 lg:flex-row sm:flex-col card-body rounded-box">
       <div className="lg:w-1/6 card-body bg-base-300 rounded-box">
         <h2 className="card-title">Palette</h2>
-        <ColorPalette onChange={(color) => setPencilColor(color)} />
-        <div className="flex flex-col">
-          <p>BackgroundColor</p>
-          <InputColorRGBA onChange={(color) => setBackgroundColor(color)} color={backgroundColor}/>
+        <div className="flex flex-col gap-8">
+          <ColorPalette onChange={(color) => setPencilColor(color)} />
+          <div>
+            <div className="text-base font-bold">BackgroundColor</div>
+            <InputColorRGBA onChange={(color) => setBackgroundColor(color)} color={backgroundColor}/>
+          </div>
           <div className="form-control">
             <label className="cursor-pointer label">
-              <span className="label-text">No background</span>
+              <span className="label-text text-base">No background</span>
               <input type="checkbox" checked={transparentBackgroundColor} onChange={toggleTransparent} className="checkbox" />
             </label>
           </div>

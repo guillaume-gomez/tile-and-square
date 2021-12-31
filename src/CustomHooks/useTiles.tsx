@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import { useState } from "react"
 import { createContainer } from "unstated-next"
 
 import zero from "../Tiles/tile_0.png";
@@ -20,10 +20,7 @@ import fifteen from "../Tiles/tile_15.png";
 import sixteen from "../Tiles/tile_16.png";
 import seventeen from "../Tiles/tile_17.png";
 
-
-
 const TILES = [zero, one, second, third, four, five, six, seven, eight, nine, ten, eleven, twelve, thirteen, forteen, fifteen, sixteen, seventeen];
-
 
 function useTiles(initialTiles : string[] = TILES ) {
   let [tiles, setTiles] = useState<string[]>(initialTiles)
@@ -38,8 +35,6 @@ function useTiles(initialTiles : string[] = TILES ) {
 
     setTiles(tilesCopy);
   }
-
-  console.log(tiles);
 
   function addTiles(tiles: string[]) {
     const tilesCopy = tiles.slice();

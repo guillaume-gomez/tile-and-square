@@ -1,9 +1,11 @@
-import React, { useState, useEffect } from 'react';
-import { useNavigate } from "react-router-dom";
+import React, { useState } from 'react';
 import { times } from "lodash";
-import Drawer from '../Components/Drawer';
+import { useNavigate } from "react-router-dom";
 import { Tiles } from "../CustomHooks/useTiles";
 
+import SelectNbTilesForm from "./diyForm/SelectNbTilesForm";
+import DrawerStepForm from "./diyForm/DrawerStepForm";
+import RecapForm from "./diyForm/RecapForm";
 
 function DiyForm() {
   const [step, setStep] = useState<number>(1);
@@ -11,42 +13,26 @@ function DiyForm() {
   const { addTile, reset } = Tiles.useContainer();
   const navigate = useNavigate();
 
-  useEffect(() => {
-    // if all drawing are saved
-    if(currentStep + 1 === step) {
-      
-    }
-  }, [step, currentStep])
-
   function renderStep() {
     if(currentStep === 0) {
-      return Form();
+      return <SelectNbTilesForm onSubmit={startDrawingPart} />;
     }
-    return DrawerStep();
+    if(currentStep === step) {
+      return <RecapForm onSubmit={()=> navigate("/") } />
+    }
+    return <DrawerStepForm onSubmit={saveImage} />;
   }
 
-  function textStep(step : number) {
-    if(step === 0) {
+  function textStep(itStep : number) {
+    if(itStep === 0) {
       return "Number of tiles";
     }
-    else {
-      return `Tile n° ${step}`;
+    else if (itStep < step) {
+      return `Tile n° ${itStep}`;
     }
-  }
-
-  function DrawerStep() {
-    return (
-      <div className="w-full p-2">
-        <ul className="w-full steps">
-          {
-            times(step + 1, (it) => 
-              <li data-content="●" className={`step ${it <= currentStep ? "step-primary" : null}`}>{textStep(it)}</li>
-            )
-          }
-        </ul>
-        <Drawer onSubmit={saveImage} />
-      </div>
-    );
+    else {
+      return "Finish";
+    }
   }
 
   function saveImage(base64img: string) {
@@ -54,39 +40,24 @@ function DiyForm() {
     setCurrentStep(currentStep + 1);
   }
 
-  function startForm() {
+  function startDrawingPart(nbStep: number) {
+    setStep(nbStep + 1)
     setCurrentStep(currentStep + 1);
     //in that part of the app, make sure default tiles are flushed
     reset();
   }
 
-  function Form() {
-    return (
-     <div className="card-body">
-        <h2 className="card-title">
-          How many people will be there / How many tiles will you draw ?
-        </h2>
-        <div className="form-control">
-          <label className="label">
-            <span className="label-text">Number</span>
-          </label> 
-          <input type="number" placeholder="6" className="input input-primary input-bordered" value={step} onChange={(e) => setStep(parseInt(e.target.value))} />
-        </div>
-        <div className="justify-end card-actions">
-          <button className="btn btn-primary" onClick={startForm}>Submit</button>
-        </div>
-      </div>
-    );
-  }
-
-
   return (
-    <div className="flex flex-col justify-items-center items-center">
-      <h2>Create you artwork</h2>
+    <div className="flex flex-col justify-items-center items-center gap-5">
+      <h2 className="text-2xl font-bold pt-2">Create you artwork</h2>
+      <ul className="w-full steps">
+        {
+          times(step + 1, (it) => 
+            <li key={it} data-content="●" className={`step ${it <= currentStep ? "step-primary" : null}`}>{textStep(it)}</li>
+          )
+        }
+      </ul>
       {renderStep()}
-      <button onClick={() => navigate("/")}>
-        C'est fini mon gars
-      </button>
     </div>
    );
 }
