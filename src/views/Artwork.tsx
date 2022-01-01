@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import Canvas from '../Components/Canvas';
 import SliderWithLabel from "../Components/SliderWithLabel";
 import ColorPicker from "../Components/ColorPicker";
@@ -18,6 +18,19 @@ function Artwork() {
 
   const container = useRef<HTMLDivElement>(null);
   const canvasActionsRef = useRef<ExternalActionInterface| null>(null);
+
+    useEffect(() => {
+    function fullscreenCallback() {
+      if (document.fullscreenElement) {
+        setFullScreen(true)
+      } else {
+        setFullScreen(false)
+      }
+    }
+    container!.current!.addEventListener('fullscreenchange', fullscreenCallback);
+    return () => container!.current!.removeEventListener('fullscreenchange', fullscreenCallback);
+  }, [container])
+
 
   function resetPosition() {
     if(canvasActionsRef && canvasActionsRef.current) {
@@ -57,30 +70,17 @@ function Artwork() {
     if(!container || !container.current) {
       return;
     }
-    setFullScreen(true);
     if(!document.fullscreenElement) {
       container.current.requestFullscreen({ navigationUI: "show" })
-      .then(() => {
-        if(canvasActionsRef && canvasActionsRef.current) {
-          canvasActionsRef.current.scrollTo();
-        }
-      })
     }
   }
 
   function CloseFullScreen() {
-    console.log("fjkfdjk")
     if(!container || !container.current) {
       return;
     }
-    setFullScreen(false);
     if (document.fullscreenElement) {
-      document.exitFullscreen()
-        .then(() => {
-        if(canvasActionsRef && canvasActionsRef.current) {
-          canvasActionsRef.current.scrollTo();
-        }
-      })
+      document.exitFullscreen();
     }
   }
 
