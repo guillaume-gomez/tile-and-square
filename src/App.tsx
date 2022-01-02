@@ -1,6 +1,7 @@
 import React from 'react';
+// using HashRouter instead of browserroute to avoid url conflict in github-pages
 import {
-  BrowserRouter,
+  HashRouter,
   Routes,
   Route
 } from "react-router-dom";
@@ -11,17 +12,16 @@ import { Tiles } from "./CustomHooks/useTiles";
 
 function App() {
   return (
-  <BrowserRouter>
+  <HashRouter>
     <Tiles.Provider>
       <Routes>
-        <Route path="tile-and-square" element={<Layout />}>
+        <Route element={<Layout />}>
           <Route path="diy" element={<DiyForm />} />
           <Route index element={<Artwork />} />
         </Route>
-        <Route path="*" element={<Artwork />} />
       </Routes>
     </Tiles.Provider>
-  </BrowserRouter>
+  </HashRouter>
   )
 }
 
