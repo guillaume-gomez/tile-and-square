@@ -134,7 +134,6 @@ const Canvas = forwardRef<ExternalActionInterface, CanvasInterface>(({speed, bac
     const widthTile = width / nbTilesWidth;
     const heightTile = height / nbTilesWidth;
 
-    const tiles : TileData[] = [];
     const promises : Promise<TileData>[] = [];
 
     const strategyName = sample(["horizontal","vertical", "southEast", "northEast" , "southWest" , "northWest"]) as strategyType;
