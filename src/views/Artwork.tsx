@@ -28,7 +28,11 @@ function Artwork() {
       }
     }
     container!.current!.addEventListener('fullscreenchange', fullscreenCallback);
-    return () => container!.current!.removeEventListener('fullscreenchange', fullscreenCallback);
+    return () => {
+      if(container && container.current) {
+        container.current.removeEventListener('fullscreenchange', fullscreenCallback)
+      }
+    };
   }, [container])
 
 
