@@ -1,14 +1,29 @@
 import React from 'react';
+import { Link } from "react-router-dom";
+
 
 function Header() {
   return (
     <div className="navbar mb-2 shadow-lg bg-base-300 text-neutral-content rounded-box">
-      <div className="flex-1 px-2 mx-2">
+
+      <div className="navbar-start">
+    <div className="dropdown">
+      <label tabIndex={0} className="btn btn-ghost btn-circle">
+        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7" /></svg>
+      </label>
+      <ul tabIndex={0} className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
+        <li><Link to="./">Artwork</Link></li>
+        <li><Link to="diy">Diy</Link></li>
+      </ul>
+    </div>
+    <div className="flex-1 px-2 mx-2">
         <span className="text-3xl font-bold">
          Tiles and Squares
         </span>
-      </div> 
-      <div className="flex-none">
+      </div>
+  </div>
+  <div className="navbar-end">
+     <div className="flex-none">
          <div title="Github ↗︎" className="items-center flex-none">
             <a aria-label="Github" target="_blank" rel="noreferrer" href="https://github.com/guillaume-gomez/tile-and-square" className="normal-case btn btn-primary drawer-button btn-square">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" className="inline-block w-6 h-6 fill-current">
@@ -18,6 +33,12 @@ function Header() {
             </a>
          </div>
       </div>
+  </div>
+
+
+      
+
+     
     </div>
   );
 }

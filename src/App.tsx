@@ -15,10 +15,11 @@ function App() {
   <HashRouter>
     <Tiles.Provider>
       <Routes>
-        <Route element={<Layout />}>
-          <Route path="diy" element={<DiyForm />} />
-          <Route index element={<Artwork />} />
-        </Route>
+        <Route path="/" element={<Layout />}>
+            <Route path="diy" element={<DiyForm />} />
+            <Route index element={<Artwork />} />
+          </Route>
+        
       </Routes>
     </Tiles.Provider>
   </HashRouter>
