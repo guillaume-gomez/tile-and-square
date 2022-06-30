@@ -1,7 +1,8 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef } from 'react';
 import Canvas from '../Components/Canvas';
 import SliderWithLabel from "../Components/SliderWithLabel";
 import ColorPicker from "../Components/ColorPicker";
+import { useFullscreen } from "rooks";
 
 import { ExternalActionInterface } from "../interfaces";
 
@@ -11,31 +12,18 @@ function Artwork() {
   const [speed, setSpeed] = useState<number>(25);
   const [play, setPlay] = useState<boolean>(true);
   const [backgroundColorClass, setBackgroundClass] = useState<string>("red-800");
-  const [nbTilesWidth, setNbTileWidth] = useState<number>(4);
-  const [fullScreen, setFullScreen] = useState<boolean>(false);
+  const [nbTilesWidth, setNbTileWidth] = useState<number>(5);
   const [showOverlay, setShowOverlay] = useState<boolean>(false);
+  const {
+    isFullscreen,
+    toggle
+  } = useFullscreen();
   const { tiles } = Tiles.useContainer();
 
   const container = useRef<HTMLDivElement>(null);
   const canvasActionsRef = useRef<ExternalActionInterface| null>(null);
 
-    useEffect(() => {
-    function fullscreenCallback() {
-      if (document.fullscreenElement) {
-        setFullScreen(true)
-      } else {
-        setFullScreen(false)
-      }
-    }
-    container!.current!.addEventListener('fullscreenchange', fullscreenCallback);
-    return () => {
-      if(container && container.current) {
-        container.current.removeEventListener('fullscreenchange', fullscreenCallback)
-      }
-    };
-  }, [container])
-
-
+ 
   function resetPosition() {
     if(canvasActionsRef && canvasActionsRef.current) {
       canvasActionsRef.current.resetPosition();
@@ -62,31 +50,6 @@ function Artwork() {
     setPlay(!play);
   }
 
-  function ToggleFullScreen() {
-    if(fullScreen || document.fullscreenElement) {
-      CloseFullScreen();
-    } else {
-      SetFullScreen();
-    }
-  }
-
-  function SetFullScreen() {
-    if(!container || !container.current) {
-      return;
-    }
-    if(!document.fullscreenElement) {
-      container.current.requestFullscreen({ navigationUI: "show" })
-    }
-  }
-
-  function CloseFullScreen() {
-    if(!container || !container.current) {
-      return;
-    }
-    if (document.fullscreenElement) {
-      document.exitFullscreen();
-    }
-  }
 
   function resizeTiles(value: string) {
     setNbTileWidth(parseInt(value));
@@ -97,7 +60,12 @@ function Artwork() {
       <div className="card-body">
         <div className="flex flex-col items-center justify-items-center gap-10">
           <div className="absolute top-8">
-            <button onMouseEnter={() => setShowOverlay(true)} className={`${showOverlay ? "hidden" : "" }transform -translate-y-20 transition duration-500 ease-in-out btn btn-primary`} onClick={() => ToggleFullScreen() }>{fullScreen ? "Disable Full Screen" : "Enable Full Screen"}</button>
+            <button onMouseEnter={() => setShowOverlay(true)} 
+              className={`${showOverlay ? "hidden" : "" }transform -translate-y-20 transition duration-500 ease-in-out btn btn-primary`}
+              onClick={() => container.current && toggle(container.current)}
+            >
+              {isFullscreen ? "Disable Full Screen" : "Enable Full Screen"}
+            </button>
           </div>
           <div
             onMouseEnter={() => setShowOverlay(true)}

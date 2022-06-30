@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import React, { useRef, useEffect, forwardRef, useImperativeHandle } from 'react';
 import useAnimationFrame from "../CustomHooks/useAnimationFrame";
-import useWindowSize from "../CustomHooks/useWindowSize";
+import {useWindowSize} from "rooks";
 import { sample } from "lodash";
 import { TileData, strategyType, ExternalActionInterface } from "../interfaces";
 
@@ -22,24 +22,24 @@ interface CanvasInterface {
 
 const Canvas = forwardRef<ExternalActionInterface, CanvasInterface>(({speed, backgroundColorClass, nbTilesWidth, tileCollection }, ref) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const { innerWidth, innerHeight } = useWindowSize();
   const tilesRef = useRef<TileData[]>([]);
   const { play, stop } = useAnimationFrame(animate);
 
-  useWindowSize((width: number, height: number) => {
+  useEffect(() => {
     const { current } = canvasRef;
-    if(current) {
-      const width = window.innerWidth;
-      const height = window.innerHeight;
+    if(current && innerWidth && innerHeight) {
       // divide by two is arbitrary
-      const value = Math.min(width, height) - 25;
+      const value = Math.min(innerWidth, innerHeight) - 25;
       current.width = value;
       current.height = value;
+      console.log(nbTilesWidth)
       resizeTiles(current.width, current.height);
       resetPosition();
       const context = current.getContext("2d");
       renderArtwork(context);
     }
-  });
+  }, [ innerWidth, innerHeight]);
 
   useEffect(() => {
     const { current } = canvasRef;
