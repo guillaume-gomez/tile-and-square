@@ -33,7 +33,6 @@ const Canvas = forwardRef<ExternalActionInterface, CanvasInterface>(({speed, bac
       const value = Math.min(innerWidth, innerHeight) - 25;
       current.width = value;
       current.height = value;
-      console.log(nbTilesWidth)
       resizeTiles(current.width, current.height);
       resetPosition();
       const context = current.getContext("2d");
@@ -137,7 +136,6 @@ const Canvas = forwardRef<ExternalActionInterface, CanvasInterface>(({speed, bac
     const promises : Promise<TileData>[] = [];
 
     const strategyName = sample(["horizontal","vertical", "southEast", "northEast" , "southWest" , "northWest"]) as strategyType;
-
     for(let x = 0; x < width; x += widthTile) {
       for(let y = 0; y < height; y += heightTile) {
 
