@@ -241,12 +241,11 @@ const Canvas = forwardRef<ExternalActionInterface, CanvasInterface>(({speed, bac
     context.clearRect(0,0, width, height);
     tilesRef.current.forEach(({image, x, y, width, height}) => {
       context.save();
-      // customise color
-/*      context.fillStyle = "grey";
-      context.fillRect(x, y, width, height);
-      context.globalCompositeOperation = "destination-out";*/
-      
-      context.drawImage(image, x, y, width, height);
+      // sometimes the image is on about to be reloaded and its value is null during the process
+      if(image) {
+        context.drawImage(image, x, y, width, height);
+
+      }
       context.restore();
     })
   }
