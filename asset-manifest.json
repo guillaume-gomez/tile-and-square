@@ -1,26 +1,26 @@
 {
   "files": {
-    "main.css": "/tile-and-square/static/css/main.d178300a.chunk.css",
-    "main.js": "/tile-and-square/static/js/main.185ebf34.chunk.js",
-    "main.js.map": "/tile-and-square/static/js/main.185ebf34.chunk.js.map",
-    "runtime-main.js": "/tile-and-square/static/js/runtime-main.573160d6.js",
-    "runtime-main.js.map": "/tile-and-square/static/js/runtime-main.573160d6.js.map",
-    "static/js/2.b17aa28a.chunk.js": "/tile-and-square/static/js/2.b17aa28a.chunk.js",
-    "static/js/2.b17aa28a.chunk.js.map": "/tile-and-square/static/js/2.b17aa28a.chunk.js.map",
-    "static/js/3.ce71bef3.chunk.js": "/tile-and-square/static/js/3.ce71bef3.chunk.js",
-    "static/js/3.ce71bef3.chunk.js.map": "/tile-and-square/static/js/3.ce71bef3.chunk.js.map",
+    "main.css": "/tile-and-square/static/css/main.5a4d8907.chunk.css",
+    "main.js": "/tile-and-square/static/js/main.8a1ec337.chunk.js",
+    "main.js.map": "/tile-and-square/static/js/main.8a1ec337.chunk.js.map",
+    "runtime-main.js": "/tile-and-square/static/js/runtime-main.593f7037.js",
+    "runtime-main.js.map": "/tile-and-square/static/js/runtime-main.593f7037.js.map",
+    "static/js/2.041dcaa2.chunk.js": "/tile-and-square/static/js/2.041dcaa2.chunk.js",
+    "static/js/2.041dcaa2.chunk.js.map": "/tile-and-square/static/js/2.041dcaa2.chunk.js.map",
+    "static/js/3.62022af1.chunk.js": "/tile-and-square/static/js/3.62022af1.chunk.js",
+    "static/js/3.62022af1.chunk.js.map": "/tile-and-square/static/js/3.62022af1.chunk.js.map",
     "index.html": "/tile-and-square/index.html",
-    "static/css/main.d178300a.chunk.css.map": "/tile-and-square/static/css/main.d178300a.chunk.css.map",
-    "static/js/2.b17aa28a.chunk.js.LICENSE.txt": "/tile-and-square/static/js/2.b17aa28a.chunk.js.LICENSE.txt",
+    "static/css/main.5a4d8907.chunk.css.map": "/tile-and-square/static/css/main.5a4d8907.chunk.css.map",
+    "static/js/2.041dcaa2.chunk.js.LICENSE.txt": "/tile-and-square/static/js/2.041dcaa2.chunk.js.LICENSE.txt",
     "static/media/tile_0.16adae93.png": "/tile-and-square/static/media/tile_0.16adae93.png",
     "static/media/tile_1.e8bbf6bb.png": "/tile-and-square/static/media/tile_1.e8bbf6bb.png",
     "static/media/tile_2.966d876c.png": "/tile-and-square/static/media/tile_2.966d876c.png",
     "static/media/tile_3.2e73530d.png": "/tile-and-square/static/media/tile_3.2e73530d.png"
   },
   "entrypoints": [
-    "static/js/runtime-main.573160d6.js",
-    "static/js/2.b17aa28a.chunk.js",
-    "static/css/main.d178300a.chunk.css",
-    "static/js/main.185ebf34.chunk.js"
+    "static/js/runtime-main.593f7037.js",
+    "static/js/2.041dcaa2.chunk.js",
+    "static/css/main.5a4d8907.chunk.css",
+    "static/js/main.8a1ec337.chunk.js"
   ]
 }
