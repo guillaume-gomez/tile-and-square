@@ -3,14 +3,21 @@ import React from 'react';
 interface InputColorInterface {
   onChange: (rgba: string) => void;
   color: string;
+  label?: string;
 }
 
-function InputColor({ onChange, color } : InputColorInterface) {
+function InputColor({ onChange, color, label } : InputColorInterface) {
 
   return (
-    <div className="btn p-0" style={{backgroundColor: color }}>
-      <input className="w-full h-full" type="color" style={{ opacity: 0 }} onChange={(event) => onChange(event.target.value)} />
-    </div>
+    <button className="btn" style={{backgroundColor: color }}>
+      <div className="relative w-full h-full">
+        {
+          label ?
+          <div className="relative top-1/4">{label}</div> : <></>
+        }
+        <input className="absolute top-0 left-0 w-full h-full" style={{ opacity: 0 }} type="color" onChange={(event) => onChange(event.target.value)} />
+      </div>
+    </button>
   );
 }
 
