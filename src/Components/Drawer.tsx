@@ -19,7 +19,9 @@ function Drawer({onSubmit} : DrawerInterface) {
   const [transparentBackgroundColor, setTransparentBackgroundColor] = useState<boolean>(true);
   const [pencilThickness, setPencilThickness] = useState<number>(4);
   const [eraserThickness, setEraserThickness] = useState<number>(8);
+  const [displayGrid, setDisplayGrid] = useState<boolean>(false);
   const canvasRef = useRef<ReactSketchCanvasRef>(null);
+  const gridCanvasRef = useRef<HTMLCanvasElement>(null);
 
   async  function saveImage() {
      if(!canvasRef.current) {
@@ -52,10 +54,22 @@ function Drawer({onSubmit} : DrawerInterface) {
               <input type="checkbox" checked={transparentBackgroundColor} onChange={toggleTransparent} className="checkbox" />
             </label>
           </div>
+          <div className="form-control">
+            <label className="label cursor-pointer">
+              <span className="label-text">Show Grid</span>
+              <input
+                type="checkbox"
+                className="toggle"
+                onChange={() => setDisplayGrid(!displayGrid)}
+                checked={displayGrid}
+              />
+            </label>
+          </div>
         </div>
       </div>
       <div className="lg:w-4/6 flex flex-col gap-2 card-body bg-base-300 rounded-box">
         <h2 className="card-title">Drawing</h2>
+        {/*<canvas ref={gridCanvasRef} />*/}
         <ReactSketchCanvas
           ref={canvasRef}
           style={styles}
