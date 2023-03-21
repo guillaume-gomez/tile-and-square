@@ -1,12 +1,13 @@
 import React, { useState, useRef } from 'react';
 import { ReactSketchCanvas, ReactSketchCanvasRef } from 'react-sketch-canvas';
 import ColorPalette from "./ColorPalette";
+import CanvasGrid from "./CanvasGrid";
 import InputColorRGBA from "./InputColorRGBA";
 import DrawerActionsPalette from "./DrawerActionsPalette";
 
 const styles = {
-  //border: '0.0625rem solid #9c9c9c',
-  //borderRadius: 'rounded-box',
+  alignSelf: "center",
+  border: "5px solid black"
 };
 
 interface DrawerInterface {
@@ -21,7 +22,6 @@ function Drawer({onSubmit} : DrawerInterface) {
   const [eraserThickness, setEraserThickness] = useState<number>(8);
   const [displayGrid, setDisplayGrid] = useState<boolean>(false);
   const canvasRef = useRef<ReactSketchCanvasRef>(null);
-  const gridCanvasRef = useRef<HTMLCanvasElement>(null);
 
   async  function saveImage() {
      if(!canvasRef.current) {
@@ -61,6 +61,7 @@ function Drawer({onSubmit} : DrawerInterface) {
                 type="checkbox"
                 className="toggle"
                 onChange={() => setDisplayGrid(!displayGrid)}
+                disabled={!transparentBackgroundColor}
                 checked={displayGrid}
               />
             </label>
@@ -69,20 +70,22 @@ function Drawer({onSubmit} : DrawerInterface) {
       </div>
       <div className="lg:w-4/6 flex flex-col gap-2 card-body bg-base-300 rounded-box">
         <h2 className="card-title">Drawing</h2>
-        {/*<canvas ref={gridCanvasRef} />*/}
-        <ReactSketchCanvas
-          ref={canvasRef}
-          style={styles}
-          width="100%"
-          height="100%"
-          strokeWidth={pencilThickness}
-          eraserWidth={eraserThickness}
-          strokeColor={pencilColor}
-          canvasColor={transparentBackgroundColor ? "transparent" : backgroundColor}
-        />
-        <div className="flex flex-row-reverse">
-          <div className="btn btn-primary" onClick={saveImage} >
-            Save
+        <div className="flex flex-col w-full h-full">
+          <ReactSketchCanvas
+            ref={canvasRef}
+            style={styles}
+            width="800px"
+            height="800px"
+            strokeWidth={pencilThickness}
+            eraserWidth={eraserThickness}
+            strokeColor={pencilColor}
+            backgroundImage={transparentBackgroundColor && displayGrid ? "https://upload.wikimedia.org/wikipedia/commons/7/70/Graph_paper_scan_1600x1000_%286509259561%29.jpg" : undefined}
+            canvasColor={transparentBackgroundColor ? "transparent" : backgroundColor}
+          />
+          <div className="flex flex-row-reverse">
+            <div className="btn btn-primary" onClick={saveImage} >
+              Save
+            </div>
           </div>
         </div>
        </div>
