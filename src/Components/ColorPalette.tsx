@@ -46,7 +46,7 @@ function ColorPalette({ onChange } : ColorPaletteInterface) {
       <div className="flex flex-col gap-1">
         <div className="grid grid-cols-3 gap-1">
           {renderColors()}
-          <InputColor onChange={(color) => changeCustomColor(color)} color={customColor} label="Custom color"/>
+          <InputColor onChange={(color) => changeCustomColor(color)} color={customColor} label="🎨"/>
         </div>
         <div className="text-base font-bold">Result</div>
         <InputColorRGBA onChange={(color) => changeColor(color)} color={color} />
