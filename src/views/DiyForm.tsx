@@ -10,7 +10,7 @@ import RecapForm from "./diyForm/RecapForm";
 function DiyForm() {
   const [step, setStep] = useState<number>(1);
   const [currentStep, setCurrentStep] = useState<number>(0);
-  const { addTile, reset } = Tiles.useContainer();
+  const { addTile, reset, tiles } = Tiles.useContainer();
   const navigate = useNavigate();
 
   function renderStep() {
@@ -18,7 +18,7 @@ function DiyForm() {
       return <SelectNbTilesForm onSubmit={startDrawingPart} />;
     }
     if(currentStep === step) {
-      return <RecapForm onSubmit={()=> navigate("/") } />
+      return <RecapForm tiles={tiles} onSubmit={()=> navigate("/") } />
     }
     return <DrawerStepForm onSubmit={saveImage} />;
   }

@@ -25,7 +25,7 @@ function InputColorRGBA({ onChange, color } : InputColorRGBAInterface) {
   return (
     <div className="flex flex-col">
       <InputColor onChange={(color) => onChange(color) } color={computeColor(color, opacity)} />
-      <SliderWithLabel label="Opacity" value={opacity} max={255} onChange={(value) => changeOpacity(parseInt(value))} />
+      <SliderWithLabel label="Opacity" value={opacity} max={255} onChange={(value) => changeOpacity(value)} />
     </div>
   );
 }

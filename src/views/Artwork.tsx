@@ -9,7 +9,7 @@ import { ExternalActionInterface } from "../interfaces";
 import { Tiles } from "../CustomHooks/useTiles";
 
 function Artwork() {
-  const [speed, setSpeed] = useState<number>(25);
+  const [speed, setSpeed] = useState<number>(0.025);
   const [play, setPlay] = useState<boolean>(true);
   const [backgroundColorClass, setBackgroundClass] = useState<string>("red-800");
   const [nbTilesWidth, setNbTileWidth] = useState<number>(5);
@@ -50,11 +50,6 @@ function Artwork() {
     setPlay(!play);
   }
 
-
-  function resizeTiles(value: string) {
-    setNbTileWidth(parseInt(value));
-  }
-
   return (
     <div ref={container} className="card shadow-lg compact side bg-base-100">
       <div className="card-body">
@@ -83,8 +78,8 @@ function Artwork() {
             <ColorPicker label="Select a background color" initialColorClass={backgroundColorClass} onChange={(colorClass) => setBackgroundClass(colorClass)}/>
             <button className="btn btn-primary" onClick={() => resetAll()}>Regenerate</button>
             <button className="btn btn-primary" onClick={() => playPause()}>{play ? "⏸" : "▶"}</button>
-            <SliderWithLabel label="Speed" min={1} max={200} value={speed} step={0.5} onChange={(value) => setSpeed(parseInt(value))}/>
-            <SliderWithLabel label="Nb Tiles Width" min={2} max={10} value={nbTilesWidth} step={1} onChange={resizeTiles}/>
+            <SliderWithLabel float={true} label="Speed" min={0} max={3} value={speed} step={0.001} onChange={(value) => setSpeed(value)}/>
+            <SliderWithLabel label="Nb Tiles Width" min={2} max={10} value={nbTilesWidth} step={1} onChange={(value) => setNbTileWidth(value)}/>
             <button className="btn btn-primary" onClick={() => resetPosition()}>Reset Positions</button>
           </div>
         </div>

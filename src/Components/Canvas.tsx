@@ -204,8 +204,8 @@ const Canvas = forwardRef<ExternalActionInterface, CanvasInterface>(({speed, bac
   }
 
   function moveAndCheckCollision({ x, y, vx, vy, width, height }: TileData, deltaTime: number) : EngineInterface {
-    let newX = x + ( vx * (speed/100) * deltaTime );
-    let newY = y + (vy * (speed/100) * deltaTime );
+    let newX = x + ( vx * (speed) * deltaTime );
+    let newY = y + (vy * (speed) * deltaTime );
     let newVx = vx;
     let newVy = vy;
 
