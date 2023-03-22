@@ -4,6 +4,7 @@ import ColorPalette from "./ColorPalette";
 import CanvasGrid from "./CanvasGrid";
 import InputColorRGBA from "./InputColorRGBA";
 import DrawerActionsPalette from "./DrawerActionsPalette";
+import { useWindowSize } from "rooks";
 
 const styles = {
   alignSelf: "center",
@@ -22,6 +23,7 @@ function Drawer({onSubmit} : DrawerInterface) {
   const [eraserThickness, setEraserThickness] = useState<number>(8);
   const [displayGrid, setDisplayGrid] = useState<boolean>(false);
   const canvasRef = useRef<ReactSketchCanvasRef>(null);
+  const { innerWidth } = useWindowSize();
 
   async  function saveImage() {
      if(!canvasRef.current) {
@@ -36,6 +38,20 @@ function Drawer({onSubmit} : DrawerInterface) {
 
   function toggleTransparent() {
     setTransparentBackgroundColor(!transparentBackgroundColor);
+  }
+
+  function computeCanvasSize() : string {
+    if(!innerWidth) {
+      return "30vw";
+    }
+    if(innerWidth > 1024) {
+      return "40vw";
+    }
+    if(innerWidth > 768) {
+      return "80vw";
+    }
+
+    return "82vw";
   }
 
   return (
@@ -74,8 +90,8 @@ function Drawer({onSubmit} : DrawerInterface) {
           <ReactSketchCanvas
             ref={canvasRef}
             style={styles}
-            width="800px"
-            height="800px"
+            width={computeCanvasSize()}
+            height={computeCanvasSize()}
             strokeWidth={pencilThickness}
             eraserWidth={eraserThickness}
             strokeColor={pencilColor}
