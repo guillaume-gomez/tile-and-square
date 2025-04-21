@@ -55,7 +55,7 @@ const Canvas = forwardRef<ExternalActionInterface, CanvasInterface>(({speed, bac
 
   useEffect(() => {
     generateArtwork();
-  }, [nbTilesWidth])
+  }, [nbTilesWidth, tileCollection])
 
 
   useImperativeHandle(ref, () => ({

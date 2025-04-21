@@ -2,6 +2,7 @@ import React, { useState, useRef } from 'react';
 import Canvas from '../Components/Canvas';
 import SliderWithLabel from "../Components/SliderWithLabel";
 import ColorPicker from "../Components/ColorPicker";
+import Select from "../Components/Select";
 import { useFullscreen } from "rooks";
 
 import { ExternalActionInterface } from "../interfaces";
@@ -12,13 +13,14 @@ function Artwork() {
   const [speed, setSpeed] = useState<number>(0.025);
   const [play, setPlay] = useState<boolean>(true);
   const [backgroundColorClass, setBackgroundClass] = useState<string>("red-800");
+  const [theme, setTheme] = useState<string>("normal");
   const [nbTilesWidth, setNbTileWidth] = useState<number>(5);
   const [showOverlay, setShowOverlay] = useState<boolean>(false);
   const {
     isFullscreen,
     toggle
   } = useFullscreen();
-  const { tiles } = Tiles.useContainer();
+  const { tiles, setTileFromTheme } = Tiles.useContainer();
 
   const container = useRef<HTMLDivElement>(null);
   const canvasActionsRef = useRef<ExternalActionInterface| null>(null);
@@ -80,6 +82,19 @@ function Artwork() {
             <button className="btn btn-primary" onClick={() => playPause()}>{play ? "⏸" : "▶"}</button>
             <SliderWithLabel float={true} label="Speed" min={0} max={3} value={speed} step={0.001} onChange={(value) => setSpeed(value)}/>
             <SliderWithLabel label="Nb Tiles Width" min={2} max={10} value={nbTilesWidth} step={1} onChange={(value) => setNbTileWidth(value)}/>
+            <Select
+              label="fjdfjdf"
+              options={[
+                {label: "Normal", value:"normal"},
+                {label: "Geology", value:"geology"}
+              ]}
+              value={theme}
+              onChange={(value) => {
+                  setTheme(value)
+                  setTileFromTheme(value)
+                }
+              }
+            />
             <button className="btn btn-primary" onClick={() => resetPosition()}>Reset Positions</button>
           </div>
         </div>

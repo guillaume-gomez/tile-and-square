@@ -20,10 +20,19 @@ import fifteen from "../Tiles/tile_15.png";
 import sixteen from "../Tiles/tile_16.png";
 import seventeen from "../Tiles/tile_17.png";
 
+import geologyFirst from "../Tiles/geology_1.png";
+import geologySecond from "../Tiles/geology_2.png";
+import geologyThird from "../Tiles/geology_3.png";
+import geologyFourth from "../Tiles/geology_4.png";
+import geologyFifth from "../Tiles/geology_5.png";
+import geologySixth from "../Tiles/geology_6.png";
+
+
 const TILES = [zero, one, second, third, four, five, six, seven, eight, nine, ten, eleven, twelve, thirteen, forteen, fifteen, sixteen, seventeen];
+const GEOLOGY_TILES = [geologyFirst, geologySecond, geologyThird, geologyFourth, geologyFifth, geologySixth];
 
 function useTiles(initialTiles : string[] = TILES ) {
-  let [tiles, setTiles] = useState<string[]>(initialTiles)
+  const [tiles, setTiles] = useState<string[]>(initialTiles)
   
   function reset() {
     setTiles([]);
@@ -41,7 +50,20 @@ function useTiles(initialTiles : string[] = TILES ) {
     setTiles(tilesCopy.concat(tiles));
   }
 
-  return { tiles, reset, addTile, addTiles }
+  function setTileFromTheme(theme: string) {
+    switch(theme) {
+      case "geology":
+        setTiles(GEOLOGY_TILES)
+        return
+      case "geology":
+      default:
+        setTiles(TILES);
+        return
+
+    }
+  }
+
+  return { tiles, reset, addTile, addTiles, setTileFromTheme }
 }
 
 export const Tiles = createContainer(useTiles);
