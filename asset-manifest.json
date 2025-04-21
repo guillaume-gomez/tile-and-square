@@ -1,17 +1,23 @@
 {
   "files": {
-    "main.css": "/tile-and-square/static/css/main.5f7bc605.chunk.css",
-    "main.js": "/tile-and-square/static/js/main.59427844.chunk.js",
-    "main.js.map": "/tile-and-square/static/js/main.59427844.chunk.js.map",
+    "main.css": "/tile-and-square/static/css/main.65904e39.chunk.css",
+    "main.js": "/tile-and-square/static/js/main.cc3c4704.chunk.js",
+    "main.js.map": "/tile-and-square/static/js/main.cc3c4704.chunk.js.map",
     "runtime-main.js": "/tile-and-square/static/js/runtime-main.593f7037.js",
     "runtime-main.js.map": "/tile-and-square/static/js/runtime-main.593f7037.js.map",
-    "static/js/2.b822c525.chunk.js": "/tile-and-square/static/js/2.b822c525.chunk.js",
-    "static/js/2.b822c525.chunk.js.map": "/tile-and-square/static/js/2.b822c525.chunk.js.map",
+    "static/js/2.5fa4e368.chunk.js": "/tile-and-square/static/js/2.5fa4e368.chunk.js",
+    "static/js/2.5fa4e368.chunk.js.map": "/tile-and-square/static/js/2.5fa4e368.chunk.js.map",
     "static/js/3.62022af1.chunk.js": "/tile-and-square/static/js/3.62022af1.chunk.js",
     "static/js/3.62022af1.chunk.js.map": "/tile-and-square/static/js/3.62022af1.chunk.js.map",
     "index.html": "/tile-and-square/index.html",
-    "static/css/main.5f7bc605.chunk.css.map": "/tile-and-square/static/css/main.5f7bc605.chunk.css.map",
-    "static/js/2.b822c525.chunk.js.LICENSE.txt": "/tile-and-square/static/js/2.b822c525.chunk.js.LICENSE.txt",
+    "static/css/main.65904e39.chunk.css.map": "/tile-and-square/static/css/main.65904e39.chunk.css.map",
+    "static/js/2.5fa4e368.chunk.js.LICENSE.txt": "/tile-and-square/static/js/2.5fa4e368.chunk.js.LICENSE.txt",
+    "static/media/geology_1.945a978b.png": "/tile-and-square/static/media/geology_1.945a978b.png",
+    "static/media/geology_2.1bcd409f.png": "/tile-and-square/static/media/geology_2.1bcd409f.png",
+    "static/media/geology_3.db2d1a97.png": "/tile-and-square/static/media/geology_3.db2d1a97.png",
+    "static/media/geology_4.89cd69d2.png": "/tile-and-square/static/media/geology_4.89cd69d2.png",
+    "static/media/geology_5.b261d5e6.png": "/tile-and-square/static/media/geology_5.b261d5e6.png",
+    "static/media/geology_6.5bda93cb.png": "/tile-and-square/static/media/geology_6.5bda93cb.png",
     "static/media/tile_0.16adae93.png": "/tile-and-square/static/media/tile_0.16adae93.png",
     "static/media/tile_1.e8bbf6bb.png": "/tile-and-square/static/media/tile_1.e8bbf6bb.png",
     "static/media/tile_2.966d876c.png": "/tile-and-square/static/media/tile_2.966d876c.png",
@@ -19,8 +25,8 @@
   },
   "entrypoints": [
     "static/js/runtime-main.593f7037.js",
-    "static/js/2.b822c525.chunk.js",
-    "static/css/main.5f7bc605.chunk.css",
-    "static/js/main.59427844.chunk.js"
+    "static/js/2.5fa4e368.chunk.js",
+    "static/css/main.65904e39.chunk.css",
+    "static/js/main.cc3c4704.chunk.js"
   ]
 }
